@@ -475,7 +475,7 @@ function buildFallbackAssessment(body: AssessmentRequest): AssessmentResult {
     possibleCondition: inferred.possibleCondition,
     confidenceNote: copy.confidenceNote,
     shouldSeeDoctor: urgency !== "Low",
-    advice: copy.advice,
+    advice: [...copy.advice],    
     redFlags: copy.redFlags,
     disclaimer: copy.disclaimer,
   };
