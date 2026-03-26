@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 🔹 Font system */
+:root {
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-playfair);
+}
+
+/* 🔹 Base styling (luxury feel) */
+body {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: #1f2937; /* soft black (gray-800) */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 🔹 Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+/* 🔹 Optional: smoother UI feel */
+button, input, textarea {
+  font-family: var(--font-sans);
+}
