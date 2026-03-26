@@ -38,7 +38,7 @@ type AssessmentResult = {
   possibleCondition: string;
   confidenceNote: string;
   shouldSeeDoctor: boolean;
-  advice: string[];
+  advice: readonly string[];
   redFlags: string[];
   disclaimer: string;
 };
