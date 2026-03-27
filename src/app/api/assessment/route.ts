@@ -38,7 +38,7 @@ type AssessmentResult = {
   possibleCondition: string;
   confidenceNote: string;
   shouldSeeDoctor: boolean;
-  advice: readonly string[];
+  advice: string[];
   redFlags: string[];
   disclaimer: string;
 };
@@ -323,7 +323,11 @@ function inferSpecialty(symptoms: string): {
   };
 }
 
-function getUrgency(symptoms: string, severity?: string, specialtyKey?: SpecialtyKey): Urgency {
+function getUrgency(
+  symptoms: string,
+  severity?: string,
+  specialtyKey?: SpecialtyKey
+): Urgency {
   const text = normalizeText(symptoms);
   const severityText = normalizeText(severity);
 
@@ -413,7 +417,8 @@ function getLocalizedStrings(lang: LangMode) {
         "Yeh sirf informational guidance hai, licensed doctor ka substitute nahi hai.",
     },
     tamil: {
-      summary: "இது அடிப்படை அறிகுறி மதிப்பீடு மட்டுமே; இது மருத்துவ இறுதி நோயறிதல் அல்ல.",
+      summary:
+        "இது அடிப்படை அறிகுறி மதிப்பீடு மட்டுமே; இது மருத்துவ இறுதி நோயறிதல் அல்ல.",
       confidenceNote:
         "பகிரப்பட்ட அறிகுறிகளை அடிப்படையாகக் கொண்ட ஒரு சாத்தியமான காரணம் மட்டுமே இது; உறுதியான நோயறிதல் அல்ல.",
       advice: [
@@ -475,8 +480,8 @@ function buildFallbackAssessment(body: AssessmentRequest): AssessmentResult {
     possibleCondition: inferred.possibleCondition,
     confidenceNote: copy.confidenceNote,
     shouldSeeDoctor: urgency !== "Low",
-    advice: [...copy.advice],    
-    redFlags: copy.redFlags,
+    advice: [...copy.advice],
+    redFlags: [...copy.redFlags],
     disclaimer: copy.disclaimer,
   };
 }
@@ -515,13 +520,13 @@ function normalizeAssessmentResult(
         ? parsed.advice.filter(
             (item): item is string => typeof item === "string" && item.trim().length > 0
           )
-        : fallback.advice,
+        : [...fallback.advice],
     redFlags:
       Array.isArray(parsed.redFlags) && parsed.redFlags.length
         ? parsed.redFlags.filter(
             (item): item is string => typeof item === "string" && item.trim().length > 0
           )
-        : fallback.redFlags,
+        : [...fallback.redFlags],
     disclaimer:
       typeof parsed.disclaimer === "string" && parsed.disclaimer.trim()
         ? parsed.disclaimer.trim()
