@@ -1,6 +1,6 @@
 "use client";
 
-import { Language, languageLabels } from "../constants/languages";
+import { Language, languageLabels } from "../constants/languages.ts";
 
 type Props = {
   value: Language;
